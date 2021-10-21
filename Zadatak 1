@@ -5,7 +5,6 @@
 
 #define MAXLINE (1024)
 #define MAXSIZE (128)
-#define MAXBOD (50)
 
 typedef struct student {
 	char ime[MAXSIZE];
@@ -97,10 +96,17 @@ void ispis(student* studenti, int brojstudenata)
 {
 	double relativnibodovi[] = { 0 };
 	int i = 0;
+        int max = 0;
+
+        max = studenti[0].bodovi;
+
+        for(i = 1; i < brojstudenata; i++)
+        {
+                if(max < studenti[i].bodovi) max = studenti[i].bodovi;}
 
 	for (i = 0; i < brojstudenata; i++)
 	{
-		relativnibodovi[i] = studenti[i].bodovi / MAXBOD * 100;
+		relativnibodovi[i] = studenti[i].bodovi / max * 100;
 	}
 
 	for (i = 0; i < brojstudenata; i++)
