@@ -1,0 +1,126 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE (50)
+
+struct _Person;
+typedef struct _Person* Position;
+typedef struct _Person {
+	char name[MAX_SIZE];
+	char surname[MAX_SIZE];
+	int birthYear;
+	Position next;
+};
+
+void UnosP(Position head, char* name, char* surname, int birthYear);
+void Ispis(Position first);
+void UnosK(Position head, char* name, char* surname, int birthYear);
+Position TraziK(Position head);
+void Trazi(char* surname, Position head);
+void Brisi(Position clan, Position head);
+
+
+int main(int argc, char** argv)
+{
+	_Person head;
+	head.next = NULL;
+	head.name = { 0 };
+	head.surname = { 0 };
+	head.birthYear = 0;
+	Position p = &head;
+
+	return 0;
+}
+
+void UnosP(Position head, char* name, char* surname, int birthYear)
+{
+	Position newPerson = NULL;
+
+
+	newPerson = (Position)malloc(sizeof(_Person));
+
+	if (!newPerson)
+		perror("Nemoguće alocirati memoriju!\n");
+
+	strcpy(newPerson->name, name);
+	strcpy(newPerson->surname, surname);
+	newPerson->birthYear = birthYear;
+	newPerson->next = NULL;
+
+	newPerson->next = head->next;
+	head->next = newPerson;
+}
+
+void Ispis(Position first)
+{
+	Position temp = first->next;
+	while (temp)
+	{
+		printf("Name: %s, Surname: %s, "
+			"birthYear: %d\n", temp->name, temp->surname,
+			temp->birthYear);
+		temp = temp->next;
+	}
+}
+
+Position TraziK(Position head)
+{
+	Position temp = head;
+
+	while (temp->next)
+		temp = temp->next;
+	
+	return temp;
+}
+
+void UnosK(Position head, char* name, char* surname, int birthYear)
+{
+	Position newPerson = NULL;
+	Position lastPerson = NULL;
+
+
+	newPerson = (Position)malloc(sizeof(_Person));
+
+	if (!newPerson)
+		perror("Nemoguće alocirati memoriju!\n");
+
+	lastPerson = (Position)malloc(sizeof(_Person));
+
+	if (!lastPerson)
+		perror("Nemoguće alocirati memoriju!\n");
+
+	lastPerson = TraziK(head);
+
+	strcpy(newPerson->name, name);
+	strcpy(newPerson->surname, surname);
+	newPerson->birthYear = birthYear;
+	newPerson->next = NULL;
+
+	newPerson->next = lastPerson->next;
+	lastPerson->next = newPerson;
+}
+
+void Trazi(char* surname, Position head)
+{
+	Position temp = head->next;
+
+	while (temp->surname != NULL && temp->surname != surname)
+		temp = temp->next;
+	
+		printf("Pronaden element liste.");
+}
+
+void Brisi(Position clan, Position head)
+{
+	Position temp = head;
+
+	while (temp != NULL && temp->next != clan)
+	{
+		temp = temp->next;
+	}
+
+	temp->next = temp->next->next;
+	free(clan);
+}
