@@ -106,7 +106,7 @@ void Trazi(char* surname, Position head)
 {
 	Position temp = head->next;
 
-	while (temp->surname != NULL && temp->surname != surname)
+	while (temp->surname != NULL && strcmp(temp->surname, surname) != 0)
 		temp = temp->next;
 	
 		printf("Pronaden element liste.");
