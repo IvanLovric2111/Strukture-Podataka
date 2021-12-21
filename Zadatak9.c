@@ -62,10 +62,14 @@ int main()
     for (i = 0; i < 10; i++)
         root = Insert(root, rand() % (MAX_NUMBER - MIN_NUMBER + 1) + MIN_NUMBER);
 
+    InorderPrint(root);
+    printf("\n");
     MakeList(root, &head);
     Datoteka(&head);
 
     Replace(root);
+    InorderPrint(root);
+    printf("\n");
     MakeList(root, &head);
     Datoteka(&head);
 
